@@ -14,23 +14,30 @@ class App extends React.Component {
     this.search = this.search.bind(this);
     this.addBook = this.addBook.bind(this);
     this.displayAllBooks = this.displayAllBooks.bind(this);
+    this.fetchBooks = this.fetchBooks.bind(this);
   }
 
   componentDidMount() {
-    this.displayAllBooks();
+    this.fetchBooks()
+      .then(() => {
+        this.displayAllBooks()
+      });
   }
 
   addBook(title) {
     axios.post('/books', {data: title})
+      .then(() => this.fetchBooks())
+      .catch(err => console.log(err));
+  }
 
-    // const newBook = {
-    //   title: title,
-    //   author: 'tbd',
-    //   read: false
-    // };
-    // this.setState({
-    //   books: this.state.books.concat(newBook),
-    // }, () => this.displayAllBooks());
+  fetchBooks() {
+    return axios.get('/books')
+      .then(results => {
+        this.setState({
+          books: results.data
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   displayAllBooks() {

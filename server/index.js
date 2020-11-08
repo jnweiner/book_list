@@ -26,4 +26,14 @@ app.post('/books', (req, res) => {
     .catch(err => console.log(err))
 });
 
+app.get('/books', (req, res) => {
+  db.model.find((err, books) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(books);
+    }
+  });
+});
+
 app.listen(port, () => console.log(`listening on port ${port}`));
