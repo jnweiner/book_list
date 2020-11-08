@@ -8,20 +8,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
-      booksToDisplay: []
+      books: []
     };
     this.search = this.search.bind(this);
     this.addBook = this.addBook.bind(this);
-    this.displayAllBooks = this.displayAllBooks.bind(this);
-    this.fetchBooks = this.fetchBooks.bind(this);
+    this.fetchAllBooks = this.fetchAllBooks.bind(this);
   }
 
   componentDidMount() {
-    this.fetchBooks()
-      .then(() => {
-        this.displayAllBooks()
-      });
+    this.fetchAllBooks()
   }
 
   addBook(title) {
@@ -30,7 +25,7 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  fetchBooks() {
+  fetchAllBooks() {
     return axios.get('/books')
       .then(results => {
         this.setState({
@@ -40,28 +35,27 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  displayAllBooks() {
-    this.setState({
-      booksToDisplay: this.state.books
-    });
-  }
-
   search(query, property) {
-    var results = [];
-    this.state.books.forEach(book => {
-      if (typeof query === 'boolean') {
-        if (book[property] === query) {
-          results.push(book);
-        }
-      } else {
-        if (book[property].toLowerCase().includes(query.toLowerCase())) {
-          results.push(book);
-        }
-      }
-    });
-    this.setState({
-      booksToDisplay: results
-    });
+    axios.get(`/books/${property}/${query}`);
+
+    // make a request to the database to get all books with property matching query
+
+
+    // var results = [];
+    // this.state.books.forEach(book => {
+    //   if (typeof query === 'boolean') {
+    //     if (book[property] === query) {
+    //       results.push(book);
+    //     }
+    //   } else {
+    //     if (book[property].toLowerCase().includes(query.toLowerCase())) {
+    //       results.push(book);
+    //     }
+    //   }
+    // });
+    // this.setState({
+    //   booksToDisplay: results
+    // });
   }
 
   toggleRead(book) {
@@ -75,11 +69,11 @@ class App extends React.Component {
         <br />
         <SearchBar search={this.search}/>
         <br />
-        <button onClick={this.displayAllBooks}>All books</button>
+        <button onClick={this.fetchAllBooks}>All books</button>
         <button onClick={() => this.search(true, 'read')}>Already read</button>
         <button onClick={() => this.search(false, 'read')}>To read</button>
         <p></p>
-        <BookList books={this.state.booksToDisplay} />
+        <BookList books={this.state.books} />
       </div>
     )
   }

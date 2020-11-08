@@ -36,4 +36,16 @@ app.get('/books', (req, res) => {
   });
 });
 
+app.get('/books/:property/:query', (req, res) => {
+  var property = req.params.property;
+  var query = req.params.query;
+  db.model.find({[property]: query}, (err, relevantBooks) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(relevantBooks);
+    }
+  });
+})
+
 app.listen(port, () => console.log(`listening on port ${port}`));

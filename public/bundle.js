@@ -435,45 +435,39 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      books: [],
-      booksToDisplay: []
+      books: []
     };
     _this.search = _this.search.bind(_assertThisInitialized(_this));
     _this.addBook = _this.addBook.bind(_assertThisInitialized(_this));
-    _this.displayAllBooks = _this.displayAllBooks.bind(_assertThisInitialized(_this));
-    _this.fetchBooks = _this.fetchBooks.bind(_assertThisInitialized(_this));
+    _this.fetchAllBooks = _this.fetchAllBooks.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
-
-      this.fetchBooks().then(function () {
-        _this2.displayAllBooks();
-      });
+      this.fetchAllBooks();
     }
   }, {
     key: "addBook",
     value: function addBook(title) {
-      var _this3 = this;
+      var _this2 = this;
 
       __WEBPACK_IMPORTED_MODULE_4_axios___default.a.post('/books', {
         data: title
       }).then(function () {
-        return _this3.fetchBooks();
+        return _this2.fetchBooks();
       })["catch"](function (err) {
         return console.log(err);
       });
     }
   }, {
-    key: "fetchBooks",
-    value: function fetchBooks() {
-      var _this4 = this;
+    key: "fetchAllBooks",
+    value: function fetchAllBooks() {
+      var _this3 = this;
 
       return __WEBPACK_IMPORTED_MODULE_4_axios___default.a.get('/books').then(function (results) {
-        _this4.setState({
+        _this3.setState({
           books: results.data
         });
       })["catch"](function (err) {
@@ -481,30 +475,24 @@ var App = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "displayAllBooks",
-    value: function displayAllBooks() {
-      this.setState({
-        booksToDisplay: this.state.books
-      });
-    }
-  }, {
     key: "search",
     value: function search(query, property) {
-      var results = [];
-      this.state.books.forEach(function (book) {
-        if (typeof query === 'boolean') {
-          if (book[property] === query) {
-            results.push(book);
-          }
-        } else {
-          if (book[property].toLowerCase().includes(query.toLowerCase())) {
-            results.push(book);
-          }
-        }
-      });
-      this.setState({
-        booksToDisplay: results
-      });
+      __WEBPACK_IMPORTED_MODULE_4_axios___default.a.get("/books/".concat(property, "/").concat(query)); // make a request to the database to get all books with property matching query
+      // var results = [];
+      // this.state.books.forEach(book => {
+      //   if (typeof query === 'boolean') {
+      //     if (book[property] === query) {
+      //       results.push(book);
+      //     }
+      //   } else {
+      //     if (book[property].toLowerCase().includes(query.toLowerCase())) {
+      //       results.push(book);
+      //     }
+      //   }
+      // });
+      // this.setState({
+      //   booksToDisplay: results
+      // });
     }
   }, {
     key: "toggleRead",
@@ -513,24 +501,24 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddBar_jsx__["a" /* default */], {
         addBook: this.addBook
       }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__SearchBar_jsx__["a" /* default */], {
         search: this.search
       }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
-        onClick: this.displayAllBooks
+        onClick: this.fetchAllBooks
       }, "All books"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
         onClick: function onClick() {
-          return _this5.search(true, 'read');
+          return _this4.search(true, 'read');
         }
       }, "Already read"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
         onClick: function onClick() {
-          return _this5.search(false, 'read');
+          return _this4.search(false, 'read');
         }
       }, "To read"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__BookList_jsx__["a" /* default */], {
-        books: this.state.booksToDisplay
+        books: this.state.books
       }));
     }
   }]);
