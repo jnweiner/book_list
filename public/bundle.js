@@ -30652,26 +30652,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_components_App_jsx__ = __webpack_require__(18);
 
 
+ // var books = [
+//   {title: 'Alanna: The First Adventure', author: 'Tamora Pierce'},
+//   {title: 'Wild Magic', author: 'Tamora Pierce'},
+//   {title: 'Bossypants', author: 'Tina Fey'},
+//   {title: 'Harry Potter and the Chamber of Secrets', author: 'J.K. Rowling'},
+//   {title: 'The Phantom Tollbooth', author: 'Norton Juster'},
+// ];
 
-var books = [{
-  title: 'Alanna: The First Adventure',
-  author: 'Tamora Pierce'
-}, {
-  title: 'Wild Magic',
-  author: 'Tamora Pierce'
-}, {
-  title: 'Bossypants',
-  author: 'Tina Fey'
-}, {
-  title: 'Harry Potter and the Chamber of Secrets',
-  author: 'J.K. Rowling'
-}, {
-  title: 'The Phantom Tollbooth',
-  author: 'Norton Juster'
-}];
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src_components_App_jsx__["a" /* default */], {
-  books: books
-}), document.getElementById('app'));
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src_components_App_jsx__["a" /* default */], null), document.getElementById('app'));
 
 /***/ }),
 /* 15 */
@@ -30685,7 +30674,7 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render( /*#__PURE__*/__WEBPACK
 
 
 var BookList = function BookList(props) {
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, props.books.length === 0 ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "Sorry, no matches found.") : null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", null, props.books.map(function (book) {
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, props.books.length === 0 ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "Sorry, no books to display.") : null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", null, props.books.map(function (book) {
     return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Book_jsx__["a" /* default */], {
       key: book.title,
       book: book
@@ -30846,7 +30835,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      books: _this.props.books,
+      books: [],
       booksToDisplay: []
     };
     _this.search = _this.search.bind(_assertThisInitialized(_this));
@@ -30867,7 +30856,8 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       var newBook = {
         title: title,
-        author: 'tbd'
+        author: 'tbd',
+        read: false
       };
       this.setState({
         books: this.state.books.concat(newBook)
@@ -30884,11 +30874,17 @@ var App = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "search",
-    value: function search(query, queryType) {
+    value: function search(query, property) {
       var results = [];
       this.state.books.forEach(function (book) {
-        if (book[queryType].toLowerCase().includes(query.toLowerCase())) {
-          results.push(book);
+        if (typeof query === 'boolean') {
+          if (book[property] === query) {
+            results.push(book);
+          }
+        } else {
+          if (book[property].toLowerCase().includes(query.toLowerCase())) {
+            results.push(book);
+          }
         }
       });
       this.setState({
@@ -30898,11 +30894,23 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddBar_jsx__["a" /* default */], {
         addBook: this.addBook
       }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__SearchBar_jsx__["a" /* default */], {
         search: this.search
-      }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__BookList_jsx__["a" /* default */], {
+      }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
+        onClick: this.displayAllBooks
+      }, "All books"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this3.search(true, 'read');
+        }
+      }, "Already read"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this3.search(false, 'read');
+        }
+      }, "To read"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__BookList_jsx__["a" /* default */], {
         books: this.state.booksToDisplay
       }));
     }

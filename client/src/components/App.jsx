@@ -7,7 +7,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: this.props.books,
+      books: [],
       booksToDisplay: []
     };
     this.search = this.search.bind(this);
@@ -22,7 +22,8 @@ class App extends React.Component {
   addBook(title) {
     const newBook = {
       title: title,
-      author: 'tbd'
+      author: 'tbd',
+      read: false
     };
     this.setState({
       books: this.state.books.concat(newBook),
@@ -35,11 +36,17 @@ class App extends React.Component {
     });
   }
 
-  search(query, queryType) {
+  search(query, property) {
     var results = [];
     this.state.books.forEach(book => {
-      if (book[queryType].toLowerCase().includes(query.toLowerCase())) {
-        results.push(book);
+      if (typeof query === 'boolean') {
+        if (book[property] === query) {
+          results.push(book);
+        }
+      } else {
+        if (book[property].toLowerCase().includes(query.toLowerCase())) {
+          results.push(book);
+        }
       }
     });
     this.setState({
@@ -53,6 +60,10 @@ class App extends React.Component {
         <AddBar addBook={this.addBook} />
         <br />
         <SearchBar search={this.search}/>
+        <br />
+        <button onClick={this.displayAllBooks}>All books</button>
+        <button onClick={() => this.search(true, 'read')}>Already read</button>
+        <button onClick={() => this.search(false, 'read')}>To read</button>
         <br />
         <BookList books={this.state.booksToDisplay} />
       </div>
