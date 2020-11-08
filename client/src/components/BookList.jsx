@@ -3,6 +3,7 @@ import Book from './Book.jsx';
 
 const BookList = (props) => (
   <div>
+    {props.books.length === 0 ? <p>Sorry, no matches found.</p> : null}
     <table>
       <tbody>
         {props.books.map(book => <Book key={book.title} book={book} />)}

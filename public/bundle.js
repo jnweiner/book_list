@@ -30685,7 +30685,7 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render( /*#__PURE__*/__WEBPACK
 
 
 var BookList = function BookList(props) {
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", null, props.books.map(function (book) {
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, props.books.length === 0 ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "Sorry, no matches found.") : null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", null, props.books.map(function (book) {
     return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Book_jsx__["a" /* default */], {
       key: book.title,
       book: book
@@ -30771,6 +30771,9 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       this.props.search(this.state.value, e.target.id);
+      this.setState({
+        value: ''
+      });
     }
   }, {
     key: "render",
