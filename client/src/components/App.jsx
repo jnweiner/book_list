@@ -13,6 +13,7 @@ class App extends React.Component {
     this.search = this.search.bind(this);
     this.addBook = this.addBook.bind(this);
     this.fetchAllBooks = this.fetchAllBooks.bind(this);
+    this.toggleRead = this.toggleRead.bind(this);
   }
 
   componentDidMount() {
@@ -45,8 +46,8 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  toggleRead(book) {
-    // put request for that particular book in the database
+  toggleRead(bookId, status) {
+    axios.put(`/books/${bookId}/${status}`);
   }
 
   render() {
@@ -60,7 +61,7 @@ class App extends React.Component {
         <button onClick={() => this.search(true, 'read')}>Already read</button>
         <button onClick={() => this.search(false, 'read')}>To read</button>
         <p></p>
-        <BookList books={this.state.books} />
+        <BookList books={this.state.books} toggleRead={this.toggleRead}/>
       </div>
     )
   }

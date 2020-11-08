@@ -46,6 +46,18 @@ app.get('/books/:property/:query', (req, res) => {
       res.send(relevantBooks);
     }
   });
-})
+});
+
+app.put('/books/:bookId/:status', (req, res) => {
+  var id = req.params.bookId;
+  var status = req.params.status
+  db.model.update({_id: id}, {read: status}, (err, success) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
 
 app.listen(port, () => console.log(`listening on port ${port}`));

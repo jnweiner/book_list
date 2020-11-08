@@ -6,7 +6,7 @@ const BookDropdown = (props) => (
     <td>
       Published: <span className="info">{props.book.year}</span> <br />
       Average Goodreads Rating: <span className="info">{props.book.avg_rating}</span> <br />
-      Read? <ReadCheckbox book={props.book}/> <br />
+      Read? <ReadCheckbox book={props.book} toggleRead={props.toggleRead}/> <br />
     </td>
     <td>
       <img src={props.book.image_url}></img>

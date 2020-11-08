@@ -440,6 +440,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.search = _this.search.bind(_assertThisInitialized(_this));
     _this.addBook = _this.addBook.bind(_assertThisInitialized(_this));
     _this.fetchAllBooks = _this.fetchAllBooks.bind(_assertThisInitialized(_this));
+    _this.toggleRead = _this.toggleRead.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -489,7 +490,8 @@ var App = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "toggleRead",
-    value: function toggleRead(book) {// put request for that particular book in the database
+    value: function toggleRead(bookId, status) {
+      __WEBPACK_IMPORTED_MODULE_4_axios___default.a.put("/books/".concat(bookId, "/").concat(status));
     }
   }, {
     key: "render",
@@ -511,7 +513,8 @@ var App = /*#__PURE__*/function (_React$Component) {
           return _this5.search(false, 'read');
         }
       }, "To read"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__BookList_jsx__["a" /* default */], {
-        books: this.state.books
+        books: this.state.books,
+        toggleRead: this.toggleRead
       }));
     }
   }]);
@@ -718,7 +721,8 @@ var Book = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", {
         colSpan: "2"
       }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("strong", null, this.props.book.title), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("em", null, this.props.book.author)))), this.state.selected ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__BookDropdown_jsx__["a" /* default */], {
-        book: this.props.book
+        book: this.props.book,
+        toggleRead: this.props.toggleRead
       }) : null);
     }
   }]);
@@ -742,8 +746,9 @@ var Book = /*#__PURE__*/function (_React$Component) {
 var BookList = function BookList(props) {
   return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, props.books.length === 0 ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "Sorry, no books to display.") : null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", null, props.books.map(function (book) {
     return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Book_jsx__["a" /* default */], {
-      key: book.title,
-      book: book
+      key: book._id,
+      book: book,
+      toggleRead: props.toggleRead
     });
   })));
 };
@@ -802,10 +807,10 @@ var ReadCheckbox = /*#__PURE__*/function (_React$Component) {
   _createClass(ReadCheckbox, [{
     key: "handleChange",
     value: function handleChange(e) {
-      console.log(e.target.checked);
       this.setState({
         hasBeenRead: e.target.checked
-      }); // activate toggleRead function
+      });
+      this.props.toggleRead(this.props.book._id, e.target.checked);
     }
   }, {
     key: "render",
@@ -32864,7 +32869,8 @@ var BookDropdown = function BookDropdown(props) {
   }, props.book.year), " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), "Average Goodreads Rating: ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
     className: "info"
   }, props.book.avg_rating), " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), "Read? ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__ReadCheckbox_jsx__["a" /* default */], {
-    book: props.book
+    book: props.book,
+    toggleRead: props.toggleRead
   }), " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null)), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", {
     src: props.book.image_url
   })));

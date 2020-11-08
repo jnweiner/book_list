@@ -27,7 +27,7 @@ class Book extends React.Component {
             </p>
           </td>
         </tr>
-        {this.state.selected ? <BookDropdown book={this.props.book} /> : null}
+        {this.state.selected ? <BookDropdown book={this.props.book} toggleRead={this.props.toggleRead}/> : null}
       </tbody>
     )
   }

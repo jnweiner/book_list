@@ -10,11 +10,10 @@ class ReadCheckbox extends React.Component {
   }
 
   handleChange(e) {
-    console.log(e.target.checked);
     this.setState({
       hasBeenRead: e.target.checked
     });
-    // activate toggleRead function
+    this.props.toggleRead(this.props.book._id, e.target.checked);
   }
 
   render() {
