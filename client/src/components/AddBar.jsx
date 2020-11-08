@@ -26,7 +26,7 @@ class AddBar extends React.Component {
   render() {
     return (
       <div>
-        Add a book (by title):<input type="text" value={this.state.value} onChange={this.handleChange}></input>
+        Add a book (by title): <input type="text" value={this.state.value} onChange={this.handleChange}></input>
         <button onClick={this.handleSubmit}>Submit</button>
       </div>
     )

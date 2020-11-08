@@ -19,9 +19,7 @@ class ReadCheckbox extends React.Component {
 
   render() {
     return (
-      <span>
-        Read? <input type="checkbox" checked={this.state.hasBeenRead} onChange={this.handleChange}></input>
-      </span>
+      <input type="checkbox" checked={this.state.hasBeenRead} onChange={this.handleChange}></input>
     )
   }
 

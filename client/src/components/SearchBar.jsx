@@ -26,7 +26,7 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        Search for a book:<input type="text" value={this.state.value} onChange={this.handleChange}></input>
+        Search for a book: <input type="text" value={this.state.value} onChange={this.handleChange}></input>
         <button id="title" onClick={this.handleSubmit}>Search by title</button>
         <button id="author" onClick={this.handleSubmit}>Search by author</button>
       </div>

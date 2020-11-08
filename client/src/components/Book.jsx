@@ -1,14 +1,39 @@
 import React from 'react';
-import ReadCheckbox from './ReadCheckbox.jsx';
+import BookDropdown from './BookDropdown.jsx';
 
-const Book = (props) => (
-  <tr>
-    <td colSpan="2">
-      <strong>Title: </strong>{props.book.title} <br/>
-      <strong>Author: </strong>{props.book.author} <br />
-      <ReadCheckbox book={props.book}/>
-    </td>
-  </tr>
-)
+class Book extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: false
+    };
+    this.toggleSelected = this.toggleSelected.bind(this);
+  }
+
+  toggleSelected() {
+    const newState = this.state.selected ? false : true;
+    this.setState({
+      selected: newState
+    });
+  }
+
+  render() {
+    return (
+      <tbody>
+        <tr className={this.state.selected ? 'book selected' : 'book'} onClick={this.toggleSelected}>
+          <td colSpan="2">
+            <p><strong>{this.props.book.title}</strong>< br/>
+            <em>{this.props.book.author}</em>
+            </p>
+          </td>
+        </tr>
+        {this.state.selected ? <BookDropdown book={this.props.book} /> : null}
+      </tbody>
+    )
+  }
+
+
+
+}
 
 export default Book;

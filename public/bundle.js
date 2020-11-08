@@ -635,7 +635,7 @@ var AddBar = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, "Add a book (by title):", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, "Add a book (by title): ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
         type: "text",
         value: this.state.value,
         onChange: this.handleChange
@@ -657,17 +657,74 @@ var AddBar = /*#__PURE__*/function (_React$Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ReadCheckbox_jsx__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BookDropdown_jsx__ = __webpack_require__(47);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
 
-var Book = function Book(props) {
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tr", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", {
-    colSpan: "2"
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("strong", null, "Title: "), props.book.title, " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("strong", null, "Author: "), props.book.author, " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__ReadCheckbox_jsx__["a" /* default */], {
-    book: props.book
-  })));
-};
+
+var Book = /*#__PURE__*/function (_React$Component) {
+  _inherits(Book, _React$Component);
+
+  var _super = _createSuper(Book);
+
+  function Book(props) {
+    var _this;
+
+    _classCallCheck(this, Book);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      selected: false
+    };
+    _this.toggleSelected = _this.toggleSelected.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Book, [{
+    key: "toggleSelected",
+    value: function toggleSelected() {
+      var newState = this.state.selected ? false : true;
+      this.setState({
+        selected: newState
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tr", {
+        className: this.state.selected ? 'book selected' : 'book',
+        onClick: this.toggleSelected
+      }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", {
+        colSpan: "2"
+      }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("strong", null, this.props.book.title), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("em", null, this.props.book.author)))), this.state.selected ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__BookDropdown_jsx__["a" /* default */], {
+        book: this.props.book
+      }) : null);
+    }
+  }]);
+
+  return Book;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["a"] = Book;
 
@@ -683,12 +740,12 @@ var Book = function Book(props) {
 
 
 var BookList = function BookList(props) {
-  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, props.books.length === 0 ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "Sorry, no books to display.") : null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", null, props.books.map(function (book) {
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, props.books.length === 0 ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, "Sorry, no books to display.") : null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", null, props.books.map(function (book) {
     return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Book_jsx__["a" /* default */], {
       key: book.title,
       book: book
     });
-  }))));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = BookList;
@@ -753,11 +810,11 @@ var ReadCheckbox = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", null, "Read? ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
         type: "checkbox",
         checked: this.state.hasBeenRead,
         onChange: this.handleChange
-      }));
+      });
     }
   }]);
 
@@ -834,7 +891,7 @@ var SearchBar = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, "Search for a book:", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, "Search for a book: ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
         type: "text",
         value: this.state.value,
         onChange: this.handleChange
@@ -32789,6 +32846,31 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 47 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ReadCheckbox_jsx__ = __webpack_require__(9);
+
+
+
+var BookDropdown = function BookDropdown(props) {
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tr", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", null, "Published: ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+    className: "info"
+  }, props.book.year), " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), "Average Goodreads Rating: ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+    className: "info"
+  }, props.book.avg_rating), " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), "Read? ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__ReadCheckbox_jsx__["a" /* default */], {
+    book: props.book
+  }), " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null)), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", {
+    src: props.book.image_url
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["a"] = BookDropdown;
 
 /***/ })
 /******/ ]);
