@@ -31,7 +31,9 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-react": "^7.12.5",
     "babel-loader": "^8.1.0",
+    "bluebird": "^3.7.2",
     "path": "^0.12.7",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "xml2js": "^0.4.23"
   }
 }

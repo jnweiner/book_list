@@ -2,6 +2,7 @@ import React from 'react';
 import BookList from './BookList.jsx';
 import SearchBar from './SearchBar.jsx';
 import AddBar from './AddBar.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,14 +21,16 @@ class App extends React.Component {
   }
 
   addBook(title) {
-    const newBook = {
-      title: title,
-      author: 'tbd',
-      read: false
-    };
-    this.setState({
-      books: this.state.books.concat(newBook),
-    }, () => this.displayAllBooks());
+    axios.post('/books', {data: title})
+
+    // const newBook = {
+    //   title: title,
+    //   author: 'tbd',
+    //   read: false
+    // };
+    // this.setState({
+    //   books: this.state.books.concat(newBook),
+    // }, () => this.displayAllBooks());
   }
 
   displayAllBooks() {
