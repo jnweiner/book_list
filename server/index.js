@@ -60,4 +60,15 @@ app.put('/books/:bookId/:status', (req, res) => {
   });
 });
 
+app.delete('/books/:bookId', (req, res) => {
+  var id = req.params.bookId;
+  db.model.deleteOne({_id: id}, (err, success) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
+
 app.listen(port, () => console.log(`listening on port ${port}`));

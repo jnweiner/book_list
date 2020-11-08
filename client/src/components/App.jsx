@@ -14,6 +14,7 @@ class App extends React.Component {
     this.addBook = this.addBook.bind(this);
     this.fetchAllBooks = this.fetchAllBooks.bind(this);
     this.toggleRead = this.toggleRead.bind(this);
+    this.deleteBook = this.deleteBook.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +48,14 @@ class App extends React.Component {
   }
 
   toggleRead(bookId, status) {
-    axios.put(`/books/${bookId}/${status}`);
+    axios.put(`/books/${bookId}/${status}`)
+      .catch(err => console.log(err));
+  }
+
+  deleteBook(bookId) {
+    axios.delete(`/books/${bookId}`)
+      .then(() => this.fetchAllBooks())
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -61,7 +69,7 @@ class App extends React.Component {
         <button onClick={() => this.search(true, 'read')}>Already read</button>
         <button onClick={() => this.search(false, 'read')}>To read</button>
         <p></p>
-        <BookList books={this.state.books} toggleRead={this.toggleRead}/>
+        <BookList books={this.state.books} toggleRead={this.toggleRead} deleteBook={this.deleteBook}/>
       </div>
     )
   }

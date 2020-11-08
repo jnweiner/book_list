@@ -441,6 +441,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.addBook = _this.addBook.bind(_assertThisInitialized(_this));
     _this.fetchAllBooks = _this.fetchAllBooks.bind(_assertThisInitialized(_this));
     _this.toggleRead = _this.toggleRead.bind(_assertThisInitialized(_this));
+    _this.deleteBook = _this.deleteBook.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -491,12 +492,25 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "toggleRead",
     value: function toggleRead(bookId, status) {
-      __WEBPACK_IMPORTED_MODULE_4_axios___default.a.put("/books/".concat(bookId, "/").concat(status));
+      __WEBPACK_IMPORTED_MODULE_4_axios___default.a.put("/books/".concat(bookId, "/").concat(status))["catch"](function (err) {
+        return console.log(err);
+      });
+    }
+  }, {
+    key: "deleteBook",
+    value: function deleteBook(bookId) {
+      var _this5 = this;
+
+      __WEBPACK_IMPORTED_MODULE_4_axios___default.a["delete"]("/books/".concat(bookId)).then(function () {
+        return _this5.fetchAllBooks();
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this6 = this;
 
       return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddBar_jsx__["a" /* default */], {
         addBook: this.addBook
@@ -506,15 +520,16 @@ var App = /*#__PURE__*/function (_React$Component) {
         onClick: this.fetchAllBooks
       }, "All books"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
         onClick: function onClick() {
-          return _this5.search(true, 'read');
+          return _this6.search(true, 'read');
         }
       }, "Already read"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
         onClick: function onClick() {
-          return _this5.search(false, 'read');
+          return _this6.search(false, 'read');
         }
       }, "To read"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__BookList_jsx__["a" /* default */], {
         books: this.state.books,
-        toggleRead: this.toggleRead
+        toggleRead: this.toggleRead,
+        deleteBook: this.deleteBook
       }));
     }
   }]);
@@ -722,7 +737,8 @@ var Book = /*#__PURE__*/function (_React$Component) {
         colSpan: "2"
       }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("strong", null, this.props.book.title), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("em", null, this.props.book.author)))), this.state.selected ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__BookDropdown_jsx__["a" /* default */], {
         book: this.props.book,
-        toggleRead: this.props.toggleRead
+        toggleRead: this.props.toggleRead,
+        deleteBook: this.props.deleteBook
       }) : null);
     }
   }]);
@@ -748,7 +764,8 @@ var BookList = function BookList(props) {
     return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Book_jsx__["a" /* default */], {
       key: book._id,
       book: book,
-      toggleRead: props.toggleRead
+      toggleRead: props.toggleRead,
+      deleteBook: props.deleteBook
     });
   })));
 };
@@ -32871,7 +32888,11 @@ var BookDropdown = function BookDropdown(props) {
   }, props.book.avg_rating), " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), "Read? ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__ReadCheckbox_jsx__["a" /* default */], {
     book: props.book,
     toggleRead: props.toggleRead
-  }), " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null)), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", {
+  }), " ", /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
+    onClick: function onClick() {
+      return props.deleteBook(props.book._id);
+    }
+  }, "Remove this book")), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", {
     src: props.book.image_url
   })));
 };
