@@ -54,6 +54,10 @@ class App extends React.Component {
     });
   }
 
+  toggleRead(book) {
+    // put request for that particular book in the database
+  }
+
   render() {
     return (
       <div>
@@ -64,7 +68,7 @@ class App extends React.Component {
         <button onClick={this.displayAllBooks}>All books</button>
         <button onClick={() => this.search(true, 'read')}>Already read</button>
         <button onClick={() => this.search(false, 'read')}>To read</button>
-        <br />
+        <p></p>
         <BookList books={this.state.booksToDisplay} />
       </div>
     )
