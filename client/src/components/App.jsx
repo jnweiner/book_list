@@ -1,6 +1,7 @@
 import React from 'react';
 import BookList from './BookList.jsx';
 import SearchBar from './SearchBar.jsx';
+import AddBar from './AddBar.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,9 +11,25 @@ class App extends React.Component {
       booksToDisplay: []
     };
     this.search = this.search.bind(this);
+    this.addBook = this.addBook.bind(this);
+    this.displayAllBooks = this.displayAllBooks.bind(this);
   }
 
   componentDidMount() {
+    this.displayAllBooks();
+  }
+
+  addBook(title) {
+    const newBook = {
+      title: title,
+      author: 'tbd'
+    };
+    this.setState({
+      books: this.state.books.concat(newBook),
+    }, () => this.displayAllBooks());
+  }
+
+  displayAllBooks() {
     this.setState({
       booksToDisplay: this.state.books
     });
@@ -33,6 +50,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <AddBar addBook={this.addBook} />
+        <br />
         <SearchBar search={this.search}/>
         <br />
         <BookList books={this.state.booksToDisplay} />
