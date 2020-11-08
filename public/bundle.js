@@ -492,17 +492,21 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "toggleRead",
     value: function toggleRead(bookId, status) {
-      __WEBPACK_IMPORTED_MODULE_4_axios___default.a.put("/books/".concat(bookId, "/").concat(status))["catch"](function (err) {
+      var _this5 = this;
+
+      __WEBPACK_IMPORTED_MODULE_4_axios___default.a.put("/books/".concat(bookId, "/").concat(status)).then(function () {
+        return _this5.fetchAllBooks();
+      })["catch"](function (err) {
         return console.log(err);
       });
     }
   }, {
     key: "deleteBook",
     value: function deleteBook(bookId) {
-      var _this5 = this;
+      var _this6 = this;
 
       __WEBPACK_IMPORTED_MODULE_4_axios___default.a["delete"]("/books/".concat(bookId)).then(function () {
-        return _this5.fetchAllBooks();
+        return _this6.fetchAllBooks();
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -510,9 +514,9 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this6 = this;
+      var _this7 = this;
 
-      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddBar_jsx__["a" /* default */], {
+      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", null, "My Book List."), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddBar_jsx__["a" /* default */], {
         addBook: this.addBook
       }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__SearchBar_jsx__["a" /* default */], {
         search: this.search
@@ -520,11 +524,11 @@ var App = /*#__PURE__*/function (_React$Component) {
         onClick: this.fetchAllBooks
       }, "All books"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
         onClick: function onClick() {
-          return _this6.search(true, 'read');
+          return _this7.search(true, 'read');
         }
       }, "Already read"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
         onClick: function onClick() {
-          return _this6.search(false, 'read');
+          return _this7.search(false, 'read');
         }
       }, "To read"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p", null), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__BookList_jsx__["a" /* default */], {
         books: this.state.books,

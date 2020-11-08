@@ -2,6 +2,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+h1 {
+  font-size: 50px;
+  font-family: 'Permanent Marker', cursive;
+}
+
 table {
   border-collapse: collapse;
   width: 500px;

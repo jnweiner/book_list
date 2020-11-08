@@ -49,6 +49,7 @@ class App extends React.Component {
 
   toggleRead(bookId, status) {
     axios.put(`/books/${bookId}/${status}`)
+      .then(() => this.fetchAllBooks())
       .catch(err => console.log(err));
   }
 
@@ -61,6 +62,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <h1>My Book List.</h1>
         <AddBar addBook={this.addBook} />
         <br />
         <SearchBar search={this.search}/>
