@@ -21,7 +21,7 @@ class App extends React.Component {
 
   addBook(title) {
     axios.post('/books', {data: title})
-      .then(() => this.fetchBooks())
+      .then(() => this.fetchAllBooks())
       .catch(err => console.log(err));
   }
 
@@ -36,26 +36,13 @@ class App extends React.Component {
   }
 
   search(query, property) {
-    axios.get(`/books/${property}/${query}`);
-
-    // make a request to the database to get all books with property matching query
-
-
-    // var results = [];
-    // this.state.books.forEach(book => {
-    //   if (typeof query === 'boolean') {
-    //     if (book[property] === query) {
-    //       results.push(book);
-    //     }
-    //   } else {
-    //     if (book[property].toLowerCase().includes(query.toLowerCase())) {
-    //       results.push(book);
-    //     }
-    //   }
-    // });
-    // this.setState({
-    //   booksToDisplay: results
-    // });
+    axios.get(`/books/${property}/${query}`)
+      .then(results => {
+        this.setState({
+          books: results.data
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   toggleRead(book) {

@@ -41,9 +41,9 @@ app.get('/books/:property/:query', (req, res) => {
   var query = req.params.query;
   db.model.find({[property]: query}, (err, relevantBooks) => {
     if (err) {
-      console.log(err);
+      res.sendStatus(500);
     } else {
-      console.log(relevantBooks);
+      res.send(relevantBooks);
     }
   });
 })
