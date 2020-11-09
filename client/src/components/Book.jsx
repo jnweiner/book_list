@@ -20,8 +20,8 @@ class Book extends React.Component {
   render() {
     return (
       <tbody>
-        <tr className={this.state.selected ? 'book selected' : 'book'} onClick={this.toggleSelected}>
-          <td colSpan="2">
+        <tr onClick={this.toggleSelected}>
+          <td className={this.state.selected ? 'book selected' : 'book'} colSpan="2">
             <p><strong>{this.props.book.title}</strong>< br/>
             <em>{this.props.book.author}</em>
             </p>

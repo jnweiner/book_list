@@ -8,12 +8,9 @@ h1 {
 }
 
 table {
-  border-collapse: collapse;
   width: 500px;
-}
-
-tr {
-  border: 1px dotted black;
+  border-collapse: separate;
+  border-spacing: 10px;
 }
 
 td {
@@ -24,6 +21,11 @@ td {
   background-color: lightcoral;
 }
 
-.info {
+.book {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.text {
   color: lightcoral;
 }
